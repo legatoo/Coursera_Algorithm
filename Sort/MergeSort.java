@@ -1,5 +1,5 @@
 public class MergeSort {
-	private static int[] aux;
+	private static int[] aux; //not in-pace sorting algorithm
 	private static int cutoff = 4;
 
 	// private function

@@ -15,7 +15,7 @@ public class Week4 {
 		// }
 		// }
 
-		int[] test = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+		int[] test = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ,16,18,16,16,19,14,12};
 		HeapSort hs = new HeapSort();
 		hs.sort(test);
 

@@ -21,7 +21,7 @@ public class BinaryHeap implements Iterable {
 	public void insert(int k) {
 		if (N == heap.length - 1)
 			resize(2 * heap.length);
-		heap[++N] = k;
+		heap[++N] = k; //add at the bottom, heap begins from 1
 		swimup(N);
 	}
 
@@ -39,19 +39,20 @@ public class BinaryHeap implements Iterable {
 	// delete
 	public int delMax() {
 		int max = heap[1];
+		swap(1, N);
 		N--;
 		sink(1);
-		// heap[N+1] = 0;
+		heap[N+1] = 0;
 		return max;
 	}
 
 	// sink
 	private void sink(int index) {
-		while (2 * index < N) {
+		while (2 * index <= N) {
 			int cindex = 2 * index;
-			if (heap[cindex] < heap[cindex + 1])
+			if (heap[cindex] < heap[cindex + 1] && cindex < N)
 				cindex += 1;
-			if (heap[cindex] < heap[index])
+			if (heap[cindex] < heap[index]) //if heap order maintain, break
 				break;
 			else {
 				swap(cindex, index);

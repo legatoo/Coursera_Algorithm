@@ -6,9 +6,10 @@ public class HeapSort {
 		N = array.length;
 		heapOrder(array);
 		
-		//pay attention!!!! cant use N to iterate the array this time!!!!!!!!!
+		//pay attention!!!! CANT use N to iterate the array this time!!!!!!!!!
 		//N is changing with the sorting progress.
-		for(int i = 0; i < array.length; i++){
+		//for(int i = 0; i < array.length; i++){
+		while (N>0){
 			swap(array, 0, N-1);
 			N-=1;
 			sink(array, 0);
