@@ -23,9 +23,9 @@ public class Week7 {
 			br.close();
 		}
 
-//		System.out.println("Cycles:");
-//		DFS dfs = new DFS(g);
-//		dfs.findCycle(g);
+		System.out.println("Cycles:");
+		DFS dfs = new DFS(g);
+		dfs.findCycle(g);
 //		
 //		System.out.println();
 //		

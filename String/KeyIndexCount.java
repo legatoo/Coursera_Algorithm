@@ -131,7 +131,7 @@ public class KeyIndexCount {
 		int gt = hi;
 		int i = lt+1;
 		
-		int v = charAt(s[lo], pos);
+		int v = charAt(s[lo], pos); //pivot
 		
 		while(i <= gt){
 			if(charAt(s[i], pos) < v)

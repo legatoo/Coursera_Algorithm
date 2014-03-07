@@ -1,4 +1,5 @@
 import java.util.ArrayDeque;
+import java.util.Arrays;
 import java.util.Deque;
 import java.util.Stack;
 
@@ -29,9 +30,9 @@ public class SCC {
 				SCCNum++;
 			}
 		}
-
+		
 		for (int i = 0; i < g.size(); i++)
-			System.out.print(String.valueOf(SCC[i]) + " ");
+			System.out.print(String.valueOf(SCC[i]) + ":" + String.valueOf(i) + " ");
 
 	}
 

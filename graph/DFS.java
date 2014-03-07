@@ -112,57 +112,59 @@ public class DFS {
 						if (cyc.size() < 3)
 							continue;
 						Collections.sort(cyc);
-						if (!cycles.contains(cyc))
+						if (!cycles.contains(cyc)){
 							cycles.add(cyc);
-					}
-				}
-			}
-		}
-	}
-
-	// find all possible cycles
-	public void findCycle(DiGraph g) {
-		Deque<Integer> stack = new ArrayDeque<>();
-		ArrayList<ArrayList<Integer>> cycles = new ArrayList<ArrayList<Integer>>();
-
-		for (int i = 0; i < g.size(); i++) {
-			stack.clear();
-			for (int j = 0; j < g.size(); j++) {
-				marked[j] = false;
-				edgeTo[j] = j;
-			}
-
-			stack.push(i);
-
-			while (!stack.isEmpty()) {
-				int c = stack.pop();
-				marked[c] = true;
-
-				for (DiEdge e : g.adj(c)) {
-					if (!marked[e.to()]) {
-						stack.push(e.to());
-						edgeTo[e.to()] = e.from();
-					} else if (e.to() == i) {
-						ArrayList<DiEdge> cyc = new ArrayList<DiEdge>();
-						int s = e.to();
-						// cyc.add();
-						while (edgeTo[s] != s) {
-							cyc.add(g.find(edge[s], s));
-							s = edgeTo[s];
+							System.out.println(cyc);
 						}
-						if (cyc.size() < 3)
-							continue;
-						Collections.sort(cyc);
-						if (!cycles.contains(cyc))
-							cycles.add(cyc);
 					}
 				}
 			}
 		}
-
-		for (ArrayList<Integer> s : cycles) {
-			System.out.println(s.toString());
-		}
-
 	}
+
+//	// find all possible cycles
+//	public void findCycle(DiGraph g) {
+//		Deque<Integer> stack = new ArrayDeque<>();
+//		ArrayList<ArrayList<Integer>> cycles = new ArrayList<ArrayList<Integer>>();
+//
+//		for (int i = 0; i < g.size(); i++) {
+//			stack.clear();
+//			for (int j = 0; j < g.size(); j++) {
+//				marked[j] = false;
+//				edgeTo[j] = j;
+//			}
+//
+//			stack.push(i);
+//
+//			while (!stack.isEmpty()) {
+//				int c = stack.pop();
+//				marked[c] = true;
+//
+//				for (DiEdge e : g.adj(c)) {
+//					if (!marked[e.to()]) {
+//						stack.push(e.to());
+//						edgeTo[e.to()] = e.from();
+//					} else if (e.to() == i) {
+//						ArrayList<DiEdge> cyc = new ArrayList<DiEdge>();
+//						int s = e.to();
+//						// cyc.add();
+//						while (edgeTo[s] != s) {
+//							cyc.add(g.find(edge[s], s));
+//							s = edgeTo[s];
+//						}
+//						if (cyc.size() < 3)
+//							continue;
+//						Collections.sort(cyc);
+//						if (!cycles.contains(cyc))
+//							cycles.add(cyc);
+//					}
+//				}
+//			}
+//		}
+//
+//		for (ArrayList<Integer> s : cycles) {
+//			System.out.println(s.toString());
+//		}
+//
+//	}
 }
