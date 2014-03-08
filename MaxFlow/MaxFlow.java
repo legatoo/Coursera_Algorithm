@@ -27,7 +27,9 @@ public class MaxFlow {
 			edgeTo[i] = null;
 	}
 
-	// hasShortest path
+	// hasShortest path (bfs)
+	//check if there is an augumenting path to target
+	//
 	public boolean hasShortestPath(FlowGraph fg, int s, int t) {
 		Arrays.fill(marked, false);
 		Arrays.fill(edgeTo, null);
@@ -54,13 +56,18 @@ public class MaxFlow {
 
 	// ford-fulkerson algorithm
 	public void ffMaxFlow(FlowGraph fg, int s, int t) {
+		
+		//algorithm terminates after no augumenting path exists
 		while (hasShortestPath(fg, s, t)) {
 			double bottleNeck = Double.POSITIVE_INFINITY;
 
+			//put as much as we can put to this path
+			//the path is stored in the edgeTo array obtained by running BFS
 			for (int v = t; v != s; v = edgeTo[v].other(v))
 				bottleNeck = Math
 						.min(bottleNeck, edgeTo[v].residualCapacity(v));
 
+			//update the residual capacity of each edge
 			for (int v = t; v != s; v = edgeTo[v].other(v))
 				edgeTo[v].addResidualCpacity(v, bottleNeck);
 
