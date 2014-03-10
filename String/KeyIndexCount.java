@@ -9,29 +9,35 @@ public class KeyIndexCount {
 	int[] aux;
 	int R = 256;
 	int cutoff = 3;
+	
+	//using index sorting to sort an array
+	public String indexCountingSort(String s) {
+		count = new int[R+1]; //Notice the size of count
+		aux = new int[s.length()];
+		StringBuilder result = new StringBuilder();
+		
+		//go through the string, count the frequency of each character
+		//put the number of frequency 1 position behind of the actual position
+		//since the count is used to record the starting position of every character
+		//which equals to the end position of previous character
+		for (int i = 0; i < s.length(); i++)
+			count[s.charAt(i)+1]++;
+		
+		//convert counting array to index array. eg. the character with value 10 will start 
+		//from position recorded in the 9th slot of index(counting) array
+		for (int i = 0; i < R; i++)
+			count[i+1] += count[i];
+		
+		//go through the original array again, and put characters onto the right
+		//position
+		for (int i = 0; i < s.length(); i++)
+			aux[count[s.charAt(i)]++] = s.charAt(i);
+		
+		//copy the result back from auxiliary array
+		for (int i = 0; i < s.length(); i++)
+			result.append((char)aux[i]);
 
-	public int[] indexCountingSort(int[] s) {
-		count = new int[s.length + 1];
-		aux = new int[s.length];
-
-		// N times loops, 2N times array access(read & write)
-		for (int i = 0; i < s.length; i++)
-			count[s[i] + 1]++;
-
-		// N times loop, 2N times array access(read & write)
-		for (int i = 1; i <= s.length; i++)
-			count[i] += count[i - 1];
-
-		// N times loop, 3N times array access(read & write)
-		for (int i = 0; i < s.length; i++)
-			aux[count[s[i]]++] = s[i];
-
-		// N times loop, N times write
-		for (int i = 0; i < s.length; i++)
-			s[i] = aux[i];
-
-		// total, 4N time loop + 4N write
-		return s;
+		return result.toString();
 	}
 
 	public String[] LSD(String[] s, int n, int x) {
@@ -72,26 +78,27 @@ public class KeyIndexCount {
 		MSD(aux, s, 0, s.length - 1, 0);
 		return s;
 	}
-
+	
+	//with the same prefix, shorter strings will be ordered to the front
 	public void MSD(String[] aux, String[] s, int lo, int hi, int pos) {
+		if (hi <= lo)
+			return;
 		if (hi >= lo + cutoff){
 			insertSort(s, lo, hi, pos);
 			return;
 		}
 
-		// R+1 --> MAKE SPACE SO THAT THE FIRST ELEMENT OF ACCUMULATE ARRAY IS
-		// 0(BEGIN FROM 0)
-		// R+2 --> BESIDE THE RESAON BEFORE, WE NEED TO MAKE SPACE FOR RECURSIVE
-		int[] count = new int[R + 1];
+		//refer to the page 711 of <<algorithms>> for the details of this "+2"
+		int[] count = new int[R + 2];
 
 		for (int i = lo; i <= hi; i++)
-			count[charAt(s[i], pos) + 1]++;
+			count[charAt(s[i], pos) + 2]++;
 
-		for (int r = 0; r < R; r++)
+		for (int r = 0; r < R+1; r++)
 			count[r + 1] += count[r];
 
 		for (int i = lo; i <= hi; i++)
-			aux[count[charAt(s[i], pos)]++] = s[i];
+			aux[count[charAt(s[i], pos)+1]++] = s[i];
 
 		for (int i = lo; i <= hi; i++)
 			s[i] = aux[i - lo];
@@ -177,8 +184,11 @@ public class KeyIndexCount {
 		} finally {
 			br.close();
 		}
-
+		
 		KeyIndexCount kic = new KeyIndexCount();
+		System.out.println(kic.indexCountingSort("jjiojfalfhuehzqibzhajbaqirambzmhfka"));
+
+		//KeyIndexCount kic = new KeyIndexCount();
 		for (String s : kic.LSD(strings, size, 3))
 			System.out.println(s);
 
@@ -188,9 +198,9 @@ public class KeyIndexCount {
 			System.out.println(s);
 		
 		System.out.println();
-
-		for (String s : kic.threeWayRadix(strings))
-			System.out.println(s);
+//
+//		for (String s : kic.threeWayRadix(strings))
+//			System.out.println(s);
 
 	}
 }
