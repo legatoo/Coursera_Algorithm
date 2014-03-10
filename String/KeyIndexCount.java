@@ -8,7 +8,7 @@ public class KeyIndexCount {
 	int[] count;
 	int[] aux;
 	int R = 256;
-	int cutoff = 3;
+	int cutoff = 10;
 	
 	//using index sorting to sort an array
 	public String indexCountingSort(String s) {
@@ -112,6 +112,7 @@ public class KeyIndexCount {
 		for (int i = lo; i <= hi; i++)
 			for(int j = i; j >lo; j--)
 				if( s[j].charAt(pos) < s[j-1].charAt(pos))
+				//s[j].subString(pos).compareTo(s[j-1].subString(pos))
 					swap(s, j, j-1);
 	}
 	

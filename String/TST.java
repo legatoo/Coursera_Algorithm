@@ -12,8 +12,8 @@ public class TST<Value> {
 
 	private class Node {
 		private Value val;
-		private char ch;
-		private Node left, mid, right;
+		private char ch; //tst
+		private Node left, mid, right; //tst
 	}
 
 	public boolean isEmpty() {
@@ -35,17 +35,14 @@ public class TST<Value> {
 			x.ch = c;
 		}
 
-		if (pos == s.length() - 1) {
-			x.val = val;
-			return x;
-		}
-
 		if (c < x.ch)
 			x.left = put(x.left, s, val, pos);
 		else if (c > x.ch)
 			x.right = put(x.right, s, val, pos);
-		else
+		else if(pos < s.length()-1)
 			x.mid = put(x.mid, s, val, pos + 1);
+		else
+			x.val = val;
 
 		return x;
 	}

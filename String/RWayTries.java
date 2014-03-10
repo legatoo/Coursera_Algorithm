@@ -7,7 +7,23 @@ public class RWayTries<Value> {
 	private static int R = 256;
 	private Node root = null;
 	private int N = 0;
-
+	
+	public int size(){
+		return size(root);
+	}
+	
+	private int size(Node n){
+		if (n == null)
+			return 0;
+		
+		int cnt = 0;
+		if(n.val != null)
+			cnt++;
+		for (int r = 0; r < R; r++)
+			cnt += size(n.next[r]);
+		
+		return cnt;
+	}
 	private static class Node {
 		private Object val;
 		private Node[] next = new Node[R];
@@ -72,6 +88,7 @@ public class RWayTries<Value> {
 			return (Value) x.val;
 	}
 	
+	//get here needs to return a node in order to complete the collect job
 	private Node get(Node x, String s, int pos){
 		if ( x == null) return null;
 		if (pos == s.length())
@@ -80,6 +97,24 @@ public class RWayTries<Value> {
 		return get(x.next[c], s, pos+1);
 	}
 	
+	public String longestPrefix(String s){
+		int length = searchLongestMatch(root, s, 0, 0);
+		return s.substring(length);
+	}
+	
+	private int searchLongestMatch(Node n, String s, int pos, int length){
+		if (n == null)
+			return length;
+		if (n.val != null)
+			length = pos; 
+		//this is not the return time, only when the whole pattern
+		//was scanned, return length
+		if (pos == s.length())
+			return length;
+		
+		char c = s.charAt(pos);
+		return searchLongestMatch(n.next[c], s, pos+1, length);
+	}
 	public static void main(String[] args) throws IOException{
 		BufferedReader br = new BufferedReader(new FileReader("rwaytrie.txt"));
 		RWayTries<Integer> rwt = new RWayTries<>();
